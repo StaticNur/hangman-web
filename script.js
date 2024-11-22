@@ -12,6 +12,7 @@ class HangmanGame {
             "  +---+\n  |   |\n  O   |\n /|\\  |\n / \\  |\n      |\n========="
         ];
         this.resetGame();
+        this.onGameEnd = null;
     }
 
     resetGame() {
@@ -34,18 +35,19 @@ class HangmanGame {
 
             if (!this.maskedWord.includes("_")) {
                 this.gameOver = true;
+                if (this.onGameEnd) this.onGameEnd(true);
                 return "win";
             }
         } else {
             this.attemptsLeft--;
             if (this.attemptsLeft === 0) {
                 this.gameOver = true;
+                if (this.onGameEnd) this.onGameEnd(false);
                 return "lose";
             }
         }
         return "continue";
     }
-
     getHangmanState() {
         return this.hangmanStates[this.maxAttempts - this.attemptsLeft];
     }
@@ -146,12 +148,54 @@ function showGamesList() {
 
     userProfiles[currentUser].games.forEach((game, index) => {
         const li = document.createElement("li");
-        li.textContent = `Game ${index + 1}: Word: ${game.word}, Won: ${game.won ? "Yes" : "No"}`;
+        li.innerHTML = `
+            Game ${index + 1}: Word: ${game.word}, Won: ${game.won ? "Yes" : "No"}
+            <button class="replay-btn" data-game-index="${index}">🔄 Replay</button>
+        `;
         gamesListElem.appendChild(li);
+    });
+
+    // Добавляем обработчики на кнопки "Replay"
+    const replayButtons = document.querySelectorAll(".replay-btn");
+    replayButtons.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            const gameIndex = e.target.dataset.gameIndex;
+            replayGame(gameIndex);
+        });
     });
 
     showSection(gamesListSection);
 }
+// Повтор игры
+function replayGame(gameIndex) {
+    const savedGame = userProfiles[currentUser].games[gameIndex];
+
+    // Восстанавливаем состояние игры
+    hangmanGame.currentWord = savedGame.word;
+    hangmanGame.maskedWord = "_".repeat(savedGame.word.length).split(""); // savedGame.word.split("").map((char) => 
+    //     savedGame.guessedLetters.includes(char) ? char : "_"
+    // );
+    hangmanGame.guessedLetters = []; // [...savedGame.guessedLetters];
+    hangmanGame.attemptsLeft = 6; // hangmanGame.maxAttempts - (savedGame.guessedLetters.length - savedGame.word.split("").filter(char => savedGame.guessedLetters.includes(char)).length);
+    hangmanGame.gameOver = false;
+
+    // Обновляем UI
+    updateGameUI();
+    showSection(gameSection);
+
+    // Устанавливаем обработчик завершения игры для обновления результата
+    hangmanGame.onGameEnd = (result) => updateSavedGame(gameIndex, result);
+}
+
+// Обновление сохранённой игры
+function updateSavedGame(gameIndex, won) {
+    const savedGame = userProfiles[currentUser].games[gameIndex];
+    savedGame.won = won;
+    savedGame.attemptsLeft = hangmanGame.attemptsLeft;
+    savedGame.guessedLetters = [...hangmanGame.guessedLetters];
+    showGamesList(); // Обновляем список игр
+}
+
 
 // Показать секцию
 function showSection(section) {
@@ -191,9 +235,19 @@ function signOut() {
 
 // Слушатели событий
 signInBtn.addEventListener("click", signIn);
+nameInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        signIn();
+    }
+});
 signOutBtn.addEventListener("click", signOut);
 newGameBtn.addEventListener("click", startNewGame);
 statisticsBtn.addEventListener("click", showStatistics);
 listGamesBtn.addEventListener("click", showGamesList);
 helpBtn.addEventListener("click", () => showSection(helpSection));
 guessBtn.addEventListener("click", makeGuess);
+guessInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        makeGuess();
+    }
+});
