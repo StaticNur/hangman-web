@@ -25,7 +25,26 @@ class HangmanGame {
 
     guessLetter(letter) {
         if (this.gameOver || this.guessedLetters.includes(letter)) return null;
-
+        // Если игрок вводит целое слово
+        if (letter.length > 1) {
+            if (letter === this.currentWord) {
+                // Игрок угадал слово
+                this.maskedWord = this.currentWord.split(""); // Раскрываем слово
+                this.gameOver = true;
+                if (this.onGameEnd) this.onGameEnd(true);
+                return "win";
+            } else {
+                // Игрок ошибся
+                this.attemptsLeft--;
+                if (this.attemptsLeft === 0) {
+                    this.gameOver = true;
+                    if (this.onGameEnd) this.onGameEnd(false);
+                    return "lose";
+                }
+                return "wrongWord"; // Новый статус для неправильного слова
+            }
+        }
+        
         this.guessedLetters.push(letter);
 
         if (this.currentWord.includes(letter)) {
@@ -103,7 +122,7 @@ function makeGuess() {
     const guess = guessInput.value.toLowerCase();
     guessInput.value = "";
 
-    if (guess.length !== 1 || hangmanGame.guessedLetters.includes(guess)) {
+    if (hangmanGame.guessedLetters.includes(guess)) {
         alert("Invalid or repeated guess.");
         return;
     }
