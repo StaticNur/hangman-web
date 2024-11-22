@@ -1,0 +1,178 @@
+/* Общие стили */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #f9f9f9, #eaeaea);
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    text-align: center;
+    background: linear-gradient(45deg, #5542de, #ee5151);
+    color: white;
+    padding: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    margin-right: 30px;
+}
+
+.header div {
+    padding-left: 430px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin: 0;
+}
+
+nav {
+    margin-top: 10px;
+}
+
+.sign-out-btn {
+    background: #9c0909;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-left: 10px;
+    font-size: 16px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sign-out-btn:hover {
+    background: #780707;
+    transform: translateY(-2px);
+}
+
+.menu-btn {
+    background: #9734f5;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 25px;
+    cursor: pointer;
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+
+.name {
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+.menu-btn:hover {
+    background: #8428dc;
+    transform: translateY(-2px);
+}
+
+main {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+    flex: 1 0 auto;
+}
+
+/* Карточки секций */
+.section-card {
+    background: white;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Слово и состояния */
+.masked-word {
+    font-size: 2rem;
+    margin: 20px 0;
+    letter-spacing: 8px;
+}
+
+.attempts {
+    font-size: 1.2rem;
+    margin: 10px 0;
+}
+
+.input-group {
+    margin-top: 15px;
+}
+
+.text-input {
+    padding: 10px;
+    font-size: 18px;
+    width: 150px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+}
+
+.text-input:focus {
+    border-color: #ff758c;
+}
+
+.action-btn {
+    background: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-left: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+    background: #45a049;
+    transform: translateY(-2px);
+}
+
+/* Список игр */
+.games-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.games-list li {
+    padding: 10px;
+    background: #f4f4f4;
+    margin: 10px 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.games-list li:hover {
+    background: #ececec;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px 0;
+    background: #333;
+    color: white;
+    font-size: 14px;
+    flex-shrink: 0;
+    /* Это предотвращает сжатие футера */
+}

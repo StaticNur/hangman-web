@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <div class="header">
+            <h1>🎮 Hangman Game</h1>
+            <div>
+                <button id="signOutBtn" class="sign-out-btn">Sign Out</button>
+            </div>
+        </div>
+        <nav>
+            <button id="newGameBtn" class="menu-btn">🎲 New Game</button>
+            <button id="listGamesBtn" class="menu-btn">📜 List Games</button>
+            <button id="statisticsBtn" class="menu-btn">📊 Statistics</button>
+            <button id="helpBtn" class="menu-btn">❓ Help</button>
+        </nav>
+    </header>
+
+    <p id="name" class="name"></p>
+
+    <main>
+        <!-- Ввод имени -->
+        <section id="nameInputSection" class="section-card">
+            <h2>👤 Enter Your Name</h2>
+            <div class="input-group">
+                <input id="nameInput" type="text" placeholder="Enter your name" class="text-input">
+                <button id="signInBtn" class="action-btn">Start Game</button>
+            </div>
+        </section>
+        <section id="gameSection" class="hidden section-card">
+            <h2>🕹️ Current Game</h2>
+            <div id="hangmanState" class="hangman-visual"></div>
+            <p id="maskedWord" class="masked-word">_ _ _ _ _</p>
+            <p class="attempts">Attempts left: <span id="attemptsLeft">6</span></p>
+            <p>Guessed letters: <span id="guessedLetters">-</span></p>
+            <div id="game-visual">
+                <pre id="hangman-visual"></pre>
+            </div>
+            <div class="input-group">
+                <input id="guessInput" type="text" maxlength="1" placeholder="Enter a letter" class="text-input">
+                <button id="guessBtn" class="action-btn">✔️ Guess</button>
+            </div>
+        </section>
+
+        <!-- Статистика -->
+        <section id="statisticsSection" class="hidden section-card">
+            <h2>📊 Statistics</h2>
+            <p>Total games: <span id="totalGames">0</span></p>
+            <p>Total wins: <span id="totalWins">0</span></p>
+            <p>Total losses: <span id="totalLosses">0</span></p>
+        </section>
+
+        <!-- Список игр -->
+        <section id="gamesListSection" class="hidden section-card">
+            <h2>📜 Games History</h2>
+            <ul id="gamesList" class="games-list"></ul>
+        </section>
+
+        <!-- Помощь -->
+        <section id="helpSection" class="hidden section-card">
+            <h2>❓ How to Play</h2>
+            <p>Welcome to Hangman! Use the controls to play:</p>
+            <ul>
+                <li><strong>New Game:</strong> Start a new game.</li>
+                <li><strong>List Games:</strong> View completed games.</li>
+                <li><strong>Statistics:</strong> Check your game stats.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>Made with ❤️ for fun!</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
