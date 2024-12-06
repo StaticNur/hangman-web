@@ -103,7 +103,6 @@ var hangmanGame = new HangmanGame();
 showSection(nameInputSection);
 const userProfiles = {};
 let currentUser = null;
-let hangmanGame = null;
 
 // Обновить UI игры
 function updateGameUI() {
