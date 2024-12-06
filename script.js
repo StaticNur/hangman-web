@@ -282,6 +282,18 @@ async function signIn() {
     startNewGame();
 }
 
+function signOut() {
+    // Очистить данные текущего пользователя
+    currentUser = null;
+    profile.textContent = ""; // Очистить отображение имени пользователя
+
+    showSection(nameInputSection);
+
+    hangmanGame.resetGame();
+    updateGameUI();
+}
+
+
 // Слушатели событий
 signInBtn.addEventListener("click", signIn);
 nameInput.addEventListener("keydown", (event) => {
