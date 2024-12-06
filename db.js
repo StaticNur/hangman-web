@@ -30,10 +30,6 @@ export async function getGameById(id) {
     return await db.get('games', id);
 }
 
-
-
-
-
 // Очистка базы данных
 export async function clearDatabase() {
     const db = await openDatabase();
