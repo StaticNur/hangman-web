@@ -73,10 +73,6 @@ class HangmanGame {
     }
 }
 
-// Инициализация
-var hangmanGame = new HangmanGame();
-showSection(nameInputSection);
-
 // Основные DOM элементы
 const maskedWordElem = document.getElementById("maskedWord");
 const guessedLettersElem = document.getElementById("guessedLetters");
@@ -101,6 +97,11 @@ const gameSection = document.getElementById("gameSection");
 const statisticsSection = document.getElementById("statisticsSection");
 const gamesListSection = document.getElementById("gamesListSection");
 const helpSection = document.getElementById("helpSection");
+
+// Инициализация
+var hangmanGame = new HangmanGame();
+showSection(nameInputSection);
+
 
 // Обновить UI игры
 function updateGameUI() {
