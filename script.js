@@ -224,6 +224,39 @@ function replayGame(savedGame) {
     };
 }
 
+// Показать статистику
+async function showStatistics() {
+    // Загрузить статистику пользователя
+    await loadUserGames();
+
+    const userStats = userProfiles[currentUser];
+    const { games, wins, losses } = userStats;
+
+    // Заполнить статистику
+    document.getElementById("totalGames").textContent = games.length;
+    document.getElementById("totalWins").textContent = wins;
+    document.getElementById("totalLosses").textContent = losses;
+
+    // Рассчитать процент побед
+    const winRate = games.length > 0 ? ((wins / games.length) * 100).toFixed(2) : 0;
+    document.getElementById("winRate").textContent = `${winRate}%`;
+
+    // Показать последние 5 игр
+    const lastGamesList = document.getElementById("lastGamesList");
+    lastGamesList.innerHTML = ""; // Очистить список
+
+    const lastGames = games.slice(-5).reverse(); // Последние 5 игр
+    lastGames.forEach((game, index) => {
+        const li = document.createElement("li");
+        li.textContent = `Game ${games.length - index}: Word: ${game.word}, Result: ${game.won ? "Win" : "Loss"}`;
+        lastGamesList.appendChild(li);
+    });
+
+    // Показать секцию
+    showSection(statisticsSection);
+}
+
+
 // Показать секцию
 function showSection(section) {
     nameInputSection.classList.add("hidden");
@@ -249,12 +282,24 @@ async function signIn() {
     startNewGame();
 }
 
-// События
-guessBtn.addEventListener("click", makeGuess);
-newGameBtn.addEventListener("click", startNewGame);
-listGamesBtn.addEventListener("click", showGamesList);
-signOutBtn.addEventListener("click", () => showSection(nameInputSection));
+// Слушатели событий
 signInBtn.addEventListener("click", signIn);
+nameInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        signIn();
+    }
+});
+signOutBtn.addEventListener("click", signOut);
+newGameBtn.addEventListener("click", startNewGame);
+statisticsBtn.addEventListener("click", showStatistics);
+listGamesBtn.addEventListener("click", showGamesList);
+helpBtn.addEventListener("click", () => showSection(helpSection));
+guessBtn.addEventListener("click", makeGuess);
+guessInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        makeGuess();
+    }
+});
 
 // Инициализация
 hangmanGame = new HangmanGame();
